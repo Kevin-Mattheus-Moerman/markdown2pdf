@@ -10,7 +10,7 @@ jobs:
       - name: create file list
         id: files_list
         run: |
-          echo "files=input/$(printf '"%s" ' *.md)" > $GITHUB_OUTPUT
+          echo "files=$(printf '"input/%s" ' *.md)" > $GITHUB_OUTPUT
       - uses: docker://pandoc/latex:3.5
         with:
           args: --output=output/result.pdf ${{ steps.files_list.outputs.files }}
