@@ -10,14 +10,14 @@ jobs:
       - name: create file list
         id: files_list
         run: |
-          echo "files=$(printf '"input/%s" ' *.md)" > $GITHUB_OUTPUT
+          echo "files=$(printf '"%s" ' *.md)" > $GITHUB_OUTPUT
       - uses: docker://pandoc/latex:3.5
         with:
           args: --output=output/result.pdf ${{ steps.files_list.outputs.files }}
       - uses: actions/upload-artifact@v4
         with:
-      - name: output
-        path: output
+          name: output
+          path: output
       - name: switching from HTTPS to SSH
 	run: git remote set-url origin ${{ secrets.ssh }}
       - name: check for changes
