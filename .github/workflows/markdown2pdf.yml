@@ -21,7 +21,7 @@ jobs:
       - name: Commit files # transfer the new pdf files back into the repository
         run: |
           git config --local user.name "kevin-mattheus-moerman"
-          git add ./docs
+          git add .
           git commit -m "Updating pdfs"
       - name: Push changes # push the output folder to your repo
         uses: ad-m/github-push-action@master
