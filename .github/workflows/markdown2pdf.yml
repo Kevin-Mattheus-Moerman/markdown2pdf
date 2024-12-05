@@ -7,8 +7,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: docker://pandoc/latex:3.5
-        with:
-          args: assets/document.md --output=assets/document.pdf 
+	run: pandoc assets/document.md -o assets/document.pdf --template assets/eisvogel.tex --listings
       - uses: actions/upload-artifact@v4
       - name: Commit files # transfer the new pdf files back into the repository
         run: |
