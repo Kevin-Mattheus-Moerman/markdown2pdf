@@ -10,10 +10,11 @@ jobs:
       - name: create file list
         id: files_list
         run: |
+	  mkdir output  # create output dir
           echo "file=/assets/document.md" > $GITHUB_OUTPUT
       - uses: docker://pandoc/latex:3.5
         with:
-          args: --output=assets/result.pdf $file
+          args: --output=assets/result.pdf ${{ steps.files_list.outputs.file }}
       - uses: actions/upload-artifact@v4
         with:
           name: assets
