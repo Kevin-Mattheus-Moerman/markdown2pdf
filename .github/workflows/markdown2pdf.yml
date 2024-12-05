@@ -8,9 +8,7 @@ jobs:
     steps:
       - uses: docker://pandoc/latex:3.5
         with:
-          args: >- # allows you to break string into multiple lines
-	    assets/document.md 
-            --output=assets/document.pdf 
+          args: assets/document.md --output=assets/document.pdf 
       - uses: actions/upload-artifact@v4
       - name: Commit files # transfer the new pdf files back into the repository
         run: |
