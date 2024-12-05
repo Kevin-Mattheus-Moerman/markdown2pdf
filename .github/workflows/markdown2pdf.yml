@@ -7,14 +7,17 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-      - name: convert md to pdf
-        uses: docker://pandoc/latex:3.5
-        with:	
-          args: pandoc assets/document.md -o assets/document.pdf --template assets/eisvogel.tex --listings
+      - name: create file list
+        id: files_list
+        run: |
+          echo "files=$(printf '"%s" ' *.md)" > $GITHUB_OUTPUT
+      - uses: docker://pandoc/latex:3.5
+        with:
+          args: --output=output/result.pdf ${{ steps.files_list.outputs.files }}
       - uses: actions/upload-artifact@v4
         with:
-          name: assets
-          path: assets
+          name: output
+          path: output
       - name: Commit files # transfer the new pdf files back into the repository
         run: |
           git config --local user.name "Kevin-Mattheus-Moerman"
@@ -25,5 +28,3 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           force: true
-
-
