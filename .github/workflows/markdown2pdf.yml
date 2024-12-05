@@ -8,7 +8,7 @@ jobs:
     steps:
       - uses: docker://pandoc/latex:3.5
         with:
-          args: assets/document.md --output=assets/document.pdf --template ../eisvogel.latex --listings --number-sections
+          args: assets/document.md --output=assets/document.pdf --template /.pandoc/templates/eisvogel.latex --listings --number-sections
       - uses: actions/upload-artifact@v4
       - name: Commit files # transfer the new pdf files back into the repository
         run: |
