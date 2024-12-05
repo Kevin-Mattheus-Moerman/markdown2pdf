@@ -11,9 +11,10 @@ jobs:
         id: files_list
         run: |
           echo "files=$(printf '"%s" ' *.md)" > $GITHUB_OUTPUT
+          echo "templatepath=$assets/eisvogel.tex" > $GITHUB_OUTPUT
       - uses: docker://pandoc/latex:3.5
         with:
-          args: --output=output/document.pdf ${{ steps.files_list.outputs.files }} --template assets/eisvogel.tex --listings
+          args: --output=output/document.pdf ${{ steps.files_list.outputs.files }} --template ${{ steps.files_list.outputs.templatepath }} --listings
       - uses: actions/upload-artifact@v4
         with:
           name: output
