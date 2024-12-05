@@ -6,9 +6,9 @@ jobs:
   convert_via_pandoc:
     runs-on: ubuntu-22.04
     steps:
+      - name: Build pdf
       - uses: docker://pandoc/latex:3.5
-	run: |
-	  pandoc assets/document.md -o assets/document.pdf --template assets/eisvogel.tex --listings
+	run: pandoc assets/document.md -o assets/document.pdf --template assets/eisvogel.tex --listings
       - uses: actions/upload-artifact@v4
       - name: Commit files # transfer the new pdf files back into the repository
         run: |
