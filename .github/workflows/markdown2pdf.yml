@@ -10,10 +10,10 @@ jobs:
       - name: create file list
         id: files_list
         run: |
-          echo "files=$(printf '"%s" ' *.md)" > $GITHUB_OUTPUT
-      - uses: docker://pandoc/latex:3.5
+          echo "files=$(printf '"%s" ' *.md)" > $GITHUB_OUTPUT  
+      - uses: docker://pandoc/extra:3.5
         with:
-          args: --output=output/document.pdf ${{ steps.files_list.outputs.files }} --template "assets/eisvogel.tex" --listings
+          args: assets/document.md --output=assets/document.pdf --template /.pandoc/templates/eisvogel.latex --listings -V block-headings
       - uses: actions/upload-artifact@v4
         with:
           name: output
