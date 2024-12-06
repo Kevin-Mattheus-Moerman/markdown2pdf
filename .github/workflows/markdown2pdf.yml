@@ -13,7 +13,7 @@ jobs:
           echo "files=$(printf '"%s" ' *.md)" > $GITHUB_OUTPUT  
       - uses: docker://pandoc/extra:3.5
         with:
-          args: assets/document.md --output=assets/document.pdf --template /.pandoc/templates/eisvogel.latex --listings -V block-headings
+          args: assets/document.md --output=output/document.pdf --template assets/eisvogel.latex --listings -V block-headings
       - uses: actions/upload-artifact@v4
         with:
           name: output
