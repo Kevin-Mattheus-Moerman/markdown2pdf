@@ -4,20 +4,17 @@ on: push
 
 jobs:
   convert_via_pandoc:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: create file list
-        id: files_list
-        run: |
-          echo "files=$(printf '"%s" ' *.md)" > $GITHUB_OUTPUT
-      - uses: docker://pandoc/latex:3.5
+      - name: Build examples
+        run: cd build && bash build.sh && cd ..
+      - name: Add generated example files
+        uses: actions/upload-artifact@v4
         with:
-          args: --output=output/document.pdf ${{ steps.files_list.outputs.files }} --template assets/eisvogel.tex --listings
-      - uses: actions/upload-artifact@v4
-        with:
-          name: output
-          path: output
+          name: build-files
+          path: |
+            output/document.pdf            
       - name: Commit files # transfer the new pdf files back into the repository
         run: |
           git config --local user.name "Kevin-Mattheus-Moerman"
