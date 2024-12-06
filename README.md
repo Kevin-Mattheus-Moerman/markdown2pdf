@@ -1,3 +1,11 @@
+
+
+```
+pandoc assets/document.md -o assets/document.pdf --template assets/eisvogel.tex --listings
+```
+
+
+```
 name: markdown2pdf
 
 on: push
@@ -24,3 +32,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           force: true
+  ```
